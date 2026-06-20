@@ -535,8 +535,8 @@ for (const [index, loop] of loops.entries()) {
     ),
   );
   assert(page.includes(`rel="help" href="${siteMeta.baseUrl}agents/"`));
-  assert(page.includes("../../styles.css?v=20260620-agent-guide"));
-  assert(page.includes("../../script.js?v=20260620-agent-guide"));
+  assert(page.includes("../../styles.css?v=20260620-primary-nav"));
+  assert(page.includes("../../script.js?v=20260620-primary-nav"));
   assert(page.includes(`<meta property="og:image" content="${imageUrl}"`));
   assert(page.includes(`<meta property="og:image:secure_url" content="${imageUrl}"`));
   assert(page.includes(`<meta property="og:image:type" content="${siteMeta.socialImageMimeType}"`));
@@ -603,7 +603,14 @@ for (const [index, loop] of loops.entries()) {
   assert(!page.includes("<h2>Topics</h2>"));
   assert(page.includes("Related loops"));
   assert(!page.includes("<dt>Type</dt>"));
-  assert(page.includes('href="../../learn/">What is a loop?</a>'));
+  assert(
+    page.includes(
+      '<a href="../../#library" aria-current="page">Loops</a>',
+    ),
+  );
+  assert(page.includes('<a href="../../learn/">Learn</a>'));
+  assert(page.includes('<a href="../../agents/">For agents</a>'));
+  assert.equal((page.match(/class="mobile-site-nav"/g) || []).length, 1);
   assert(!page.includes('href="../../#tips"'));
   assert(page.includes('data-copy-root'));
   assert(page.includes('class="share-actions" aria-label="Share this loop"'));
@@ -792,8 +799,8 @@ assert(!html.includes('data-type='));
 assert(!html.includes('class="cell-type"'));
 assert(!html.includes("type-badge"));
 assert(!html.includes('<th scope="col">Type</th>'));
-assert(html.includes("./styles.css?v=20260620-skill-promo-top"));
-assert(html.includes("./script.js?v=20260620-agent-guide"));
+assert(html.includes("./styles.css?v=20260620-primary-nav"));
+assert(html.includes("./script.js?v=20260620-primary-nav"));
 const homepagePostText =
   "Find Loops and create your own - Loop Library";
 assert(html.includes('class="share-actions" aria-label="Share Loop Library"'));
@@ -804,7 +811,10 @@ assert(html.includes('aria-label="Copy a Loop Library social post"'));
 assert(!html.includes("twitter.com/intent/tweet"));
 assert(!html.includes("Share on X"));
 assert(!html.includes(`<span>Copy link</span>`));
-assert(html.includes('href="./learn/"'));
+assert(html.includes('<a href="#library" aria-current="page">Loops</a>'));
+assert(html.includes('<a href="./learn/">Learn</a>'));
+assert(html.includes('<a href="./agents/">For agents</a>'));
+assert.equal((html.match(/class="mobile-site-nav"/g) || []).length, 1);
 assert(!html.includes('class="loop-guide"'));
 assert(!html.includes("A useful loop specifies:"));
 assert(!html.includes("Learn how loops work and run one"));
@@ -851,8 +861,8 @@ assert.equal(
   (learnHtml.match(/href="https:\/\/here\.now\/r\/signals"/g) || []).length,
   2,
 );
-assert(learnHtml.includes("../styles.css?v=20260620-agent-guide"));
-assert(learnHtml.includes("../script.js?v=20260620-agent-guide"));
+assert(learnHtml.includes("../styles.css?v=20260620-primary-nav"));
+assert(learnHtml.includes("../script.js?v=20260620-primary-nav"));
 assert(learnHtml.includes("How agent loops work"));
 assert(learnHtml.includes('<meta name="robots" content="index, follow"'));
 assert(learnHtml.includes("What makes a loop useful"));
@@ -873,6 +883,9 @@ assert(learnHtml.includes('id="claude-code"'));
 assert(learnHtml.includes('id="factory"'));
 assert(learnHtml.includes('id="devin"'));
 assert(learnHtml.includes('href="../agents/">For agents</a>'));
+assert(learnHtml.includes('<a href="../#library">Loops</a>'));
+assert(learnHtml.includes('<a href="./" aria-current="page">Learn</a>'));
+assert.equal((learnHtml.match(/class="mobile-site-nav"/g) || []).length, 1);
 assert(learnHtml.includes(`href="${siteMeta.baseUrl}llms.txt"`));
 assert(learnHtml.includes(`href="${siteMeta.baseUrl}agents/"`));
 assert.equal((agentHtml.match(/data-here-now-credit/g) || []).length, 2);
@@ -881,6 +894,10 @@ assert.equal(
   2,
 );
 assert(agentHtml.includes("Use Loop Library directly."));
+assert(agentHtml.includes('<a href="../#library">Loops</a>'));
+assert(agentHtml.includes('<a href="../learn/">Learn</a>'));
+assert(agentHtml.includes('<a href="./" aria-current="page">For agents</a>'));
+assert.equal((agentHtml.match(/class="mobile-site-nav"/g) || []).length, 1);
 assert(agentHtml.includes("No skill installation is required."));
 assert(agentHtml.includes('href="../catalog.json"'));
 assert(agentHtml.includes('href="../catalog.txt"'));
@@ -893,8 +910,8 @@ assert(agentHtml.includes("npx skills add Forward-Future/loop-library --skill lo
 assert(agentHtml.includes('<meta name="robots" content="index, follow"'));
 assert(agentHtml.includes(`href="${siteMeta.baseUrl}catalog.json"`));
 assert(agentHtml.includes(`href="${siteMeta.baseUrl}llms.txt"`));
-assert(agentHtml.includes("../styles.css?v=20260620-agent-guide"));
-assert(agentHtml.includes("../script.js?v=20260620-agent-guide"));
+assert(agentHtml.includes("../styles.css?v=20260620-primary-nav"));
+assert(agentHtml.includes("../script.js?v=20260620-primary-nav"));
 assert(html.includes("Repeatable AI Agent Workflows"));
 assert(html.includes('rel="sitemap"'));
 assert(html.includes(`href="${siteMeta.baseUrl}catalog.json"`));
@@ -984,6 +1001,8 @@ assert(
 );
 assert(!css.includes("outline: 2px solid var(--orange)"));
 assert(css.includes(".here-now-credit"));
+assert(css.includes(".mobile-site-nav"));
+assert(css.includes('.mobile-site-nav a[aria-current="page"]'));
 assert(css.includes(".agent-steps"));
 assert(css.includes(".agent-resource-grid"));
 assert(css.includes(".agent-install-block"));

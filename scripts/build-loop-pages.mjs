@@ -248,11 +248,11 @@ function renderLoopPage(loop) {
     <link rel="alternate" type="text/plain" title="${escapeHtml(site.name)} plain-text catalog" href="${escapeHtml(site.baseUrl)}catalog.txt" />
     <link rel="help" href="${escapeHtml(site.baseUrl)}agents/" />
     <link rel="icon" type="image/png" href="../../assets/favicon.png" />
-    <link rel="stylesheet" href="../../styles.css?v=20260620-agent-guide" />
+    <link rel="stylesheet" href="../../styles.css?v=20260620-primary-nav" />
     <script type="application/ld+json">
 ${structuredData(loop)}
     </script>
-    <script src="../../script.js?v=20260620-agent-guide" defer></script>
+    <script src="../../script.js?v=20260620-primary-nav" defer></script>
     <title>${escapeHtml(loop.seoTitle)}</title>
   </head>
   <body>
@@ -272,8 +272,9 @@ ${structuredData(loop)}
       </a>
 
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="../../#library">All loops</a>
-        <a href="../../learn/">What is a loop?</a>
+        <a href="../../#library" aria-current="page">Loops</a>
+        <a href="../../learn/">Learn</a>
+        <a href="../../agents/">For agents</a>
         <button
           class="theme-toggle"
           id="theme-toggle"
@@ -293,6 +294,11 @@ ${structuredData(loop)}
         </button>
         <a class="nav-cta" href="../../#submit">Submit a loop</a>
         ${hereNowCredit("../../assets/here-now-icon.svg", "header")}
+      </nav>
+      <nav class="mobile-site-nav" aria-label="Primary navigation on small screens">
+        <a href="../../#library" aria-current="page">Loops</a>
+        <a href="../../learn/">Learn</a>
+        <a href="../../agents/">For agents</a>
       </nav>
     </header>
 
