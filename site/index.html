@@ -132,7 +132,7 @@
       href="https://signals.forwardfuture.ai/loop-library/agents/"
     />
     <link rel="icon" type="image/png" href="./assets/favicon.png" />
-    <link rel="stylesheet" href="./styles.css?v=20260621-author-byline" />
+    <link rel="stylesheet" href="./styles.css?v=20260622-empty-state" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -198,7 +198,7 @@
   ]
 }
     </script>
-    <script src="./script.js?v=20260622-search-index" defer></script>
+    <script src="./script.js?v=20260622-empty-state" defer></script>
     <title>Loop Library: Repeatable AI Agent Workflows | Forward Future</title>
   </head>
   <body>
@@ -451,7 +451,12 @@
         <div class="empty-state" id="empty-state" hidden>
           <h3>No matching loops</h3>
           <p>Try another category, broaden your search, or submit the workflow.</p>
-          <a href="#submit">Submit a loop</a>
+          <div class="empty-state-actions">
+            <button class="empty-state-reset" id="clear-filters" type="button">
+              Clear search &amp; filters
+            </button>
+            <a href="#submit">Submit a loop</a>
+          </div>
         </div>
 
         <nav

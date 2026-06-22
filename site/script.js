@@ -270,6 +270,28 @@ categoryFilters.forEach((filter) => {
   });
 });
 
+const clearFiltersButton = document.querySelector("#clear-filters");
+
+if (clearFiltersButton) {
+  clearFiltersButton.addEventListener("click", () => {
+    if (searchInput) {
+      searchInput.value = "";
+    }
+
+    activeCategory = "all";
+    currentPage = 1;
+
+    categoryFilters.forEach((candidate) => {
+      const isActive = candidate.dataset.categoryFilter === "all";
+      candidate.classList.toggle("is-active", isActive);
+      candidate.setAttribute("aria-pressed", String(isActive));
+    });
+
+    updateLibrary();
+    searchInput?.focus();
+  });
+}
+
 if (paginationPrevious) {
   paginationPrevious.addEventListener("click", () => {
     if (currentPage > 1) {

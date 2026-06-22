@@ -884,6 +884,38 @@ code {
   font-weight: 700;
 }
 
+.empty-state-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.empty-state-reset {
+  padding: 8px 12px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.empty-state-reset:hover,
+.empty-state-reset:focus-visible {
+  color: var(--solid-foreground);
+  background: var(--solid-background);
+}
+
+.empty-state-reset:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 .pagination {
   display: flex;
   align-items: center;
