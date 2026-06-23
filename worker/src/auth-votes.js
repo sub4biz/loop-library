@@ -2,6 +2,7 @@ const SESSION_TTL_SECONDS = 30 * 24 * 60 * 60;
 const OAUTH_TTL_SECONDS = 10 * 60;
 const MAX_VOTE_BODY_BYTES = 1024;
 const OAUTH_NONCE_PATTERN = /^[A-Za-z0-9_-]{32,128}$/;
+const LOOP_CATALOG_INSTANCE = "published-loops";
 
 export async function handleAuthVoteRoute(
   request,
@@ -413,7 +414,7 @@ async function readAuthBody(request) {
 }
 
 async function isPublishedLoop(env, slug) {
-  const id = env.LOOP_CATALOG.idFromName("production");
+  const id = env.LOOP_CATALOG.idFromName(LOOP_CATALOG_INSTANCE);
   const response = await env.LOOP_CATALOG.get(id).fetch("https://loop-catalog/published");
   if (!response.ok) return false;
   const catalog = await response.json();
