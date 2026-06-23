@@ -193,6 +193,7 @@ assert(css.includes(".vote-controls[hidden]"));
 assert(authVotesSource.includes('scope: "read:user"'));
 assert(authVotesSource.includes("function authBridge"));
 assert(authVotesSource.includes("readSignedValue(state"));
+assert(authVotesSource.includes('LOOP_CATALOG_INSTANCE = "published-loops"'));
 assert(browserScript.includes('window.sessionStorage.setItem(OAUTH_NONCE_KEY'));
 assert(browserScript.includes('window.sessionStorage.getItem(VOTE_SESSION_KEY)'));
 assert(browserScript.includes('url.searchParams.set("client_nonce", nonce)'));

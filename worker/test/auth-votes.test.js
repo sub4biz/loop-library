@@ -61,6 +61,7 @@ class MemoryVoteNamespace {
 
 class MemoryCatalogNamespace {
   idFromName(name) {
+    assert.equal(name, "published-loops");
     return name;
   }
 
