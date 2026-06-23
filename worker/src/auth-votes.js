@@ -34,6 +34,7 @@ export async function handleAuthVoteRoute(
     const body = await response.json();
     return jsonResponse({
       ...body,
+      uiEnabled: env.VOTING_UI_ENABLED === "true",
       viewer: publicViewer(viewer),
     });
   }

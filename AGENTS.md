@@ -112,6 +112,15 @@ npm run deploy
 
 - Register this exact provider callback:
   `https://signals.forwardfuture.ai/loop-library/auth/callback/github`.
+- Keep `VOTING_UI_ENABLED` set to the exact string `false` for the first
+  production release. Vote controls render hidden and disabled, then appear
+  only when `/api/votes` returns `uiEnabled: true`; missing or malformed values
+  must remain fail-closed.
+- With the launch flag off, verify the canonical GitHub start, callback,
+  session, vote persistence, reload, and logout flow. Change the flag to the
+  exact string `true` and redeploy the Worker from newest integrated `main`
+  only after that smoke test passes. No site republish is required to reveal
+  the controls.
 - Deploy and verify the Worker before publishing a shell or proxy manifest that
   exposes voting or auth routes.
 

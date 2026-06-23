@@ -125,15 +125,15 @@ for (const value of [
 assert(html.includes("Search the library"));
 assert(html.includes("Search by title, task, or contributor"));
 assert(html.includes('class="search-field"'));
-assert(html.includes("styles.css?v=20260623-popular-ranking"));
-assert(html.includes("script.js?v=20260623-popular-ranking"));
+assert(html.includes("styles.css?v=20260623-auth-gate"));
+assert(html.includes("script.js?v=20260623-auth-gate"));
 assert(css.includes(".search-control-label"));
 assert(css.includes(".search-control:hover .search-field"));
 assert(css.includes(".search-control:focus-within .search-field"));
 assert.equal((html.match(/data-here-now-credit/g) || []).length, 2);
 for (const page of [learnHtml, agentHtml]) {
-  assert(page.includes("styles.css?v=20260623-popular-ranking"));
-  assert(page.includes("script.js?v=20260623-popular-ranking"));
+  assert(page.includes("styles.css?v=20260623-auth-gate"));
+  assert(page.includes("script.js?v=20260623-auth-gate"));
 }
 for (const page of [html, learnHtml, agentHtml]) {
   const brandPosition = page.indexOf('class="brand-lockup"');
@@ -187,6 +187,9 @@ assert(css.includes(".vote-controls"));
 assert(css.includes(".login-dialog"));
 assert(rendererSource.includes("renderVoteControls(loop.slug)"));
 assert(rendererSource.includes('class="vote-label"'));
+assert(rendererSource.includes('aria-label="Vote on this loop" hidden'));
+assert(browserScript.includes("setVotingUiVisible(body.uiEnabled === true)"));
+assert(css.includes(".vote-controls[hidden]"));
 assert(authVotesSource.includes('scope: "read:user"'));
 assert(!authVotesSource.includes("X_OAUTH"));
 assert(!authVotesSource.includes('"/auth/x"'));
@@ -235,6 +238,7 @@ assert.equal(wrangler.vars.PUBLIC_ORIGIN_URL, "https://calm-mortar-jtek.here.now
 assert.equal(wrangler.vars.PUBLIC_SHELL_URL, "https://calm-mortar-jtek.here.now/index.html");
 assert.equal(wrangler.vars.PUBLIC_SITE_HOSTNAME, "signals.forwardfuture.ai");
 assert.equal(wrangler.vars.PUBLIC_SITE_PATH, "/loop-library");
+assert.equal(wrangler.vars.VOTING_UI_ENABLED, "false");
 assert.deepEqual(Object.keys(proxyManifest.proxies).sort(), [
   "/",
   "/api/loops",

@@ -83,6 +83,7 @@ function makeEnv() {
     PUBLIC_SITE_HOSTNAME: "signals.forwardfuture.ai",
     PUBLIC_SITE_PATH: "/loop-library",
     SESSION_SECRET: "test-session-secret-that-is-more-than-32-characters",
+    VOTING_UI_ENABLED: "true",
     VOTE_STORE: new MemoryVoteNamespace(),
   };
 }
@@ -178,6 +179,7 @@ test("GitHub OAuth creates a signed session that can cast, switch, and remove a 
     name: "Octo Loop",
   });
   assert.equal(totalsBody.viewerVotes["overnight-docs-sweep"], -1);
+  assert.equal(totalsBody.uiEnabled, true);
 
   const removed = await handleAuthVoteRoute(voteRequest(0), env);
   assert.deepEqual((await removed.json()).counts, {
@@ -185,6 +187,31 @@ test("GitHub OAuth creates a signed session that can cast, switch, and remove a 
     downvotes: 0,
     score: 0,
   });
+});
+
+test("voting UI is fail-closed unless the launch flag is exactly true", async () => {
+  const env = makeEnv();
+  delete env.VOTING_UI_ENABLED;
+
+  const disabled = await handleAuthVoteRoute(
+    new Request(`${BASE}/api/votes`),
+    env,
+  );
+  assert.equal((await disabled.json()).uiEnabled, false);
+
+  env.VOTING_UI_ENABLED = "TRUE";
+  const malformed = await handleAuthVoteRoute(
+    new Request(`${BASE}/api/votes`),
+    env,
+  );
+  assert.equal((await malformed.json()).uiEnabled, false);
+
+  env.VOTING_UI_ENABLED = "true";
+  const enabled = await handleAuthVoteRoute(
+    new Request(`${BASE}/api/votes`),
+    env,
+  );
+  assert.equal((await enabled.json()).uiEnabled, true);
 });
 
 test("vote writes reject anonymous, cross-site, malformed, and unpublished requests", async () => {

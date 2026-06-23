@@ -964,6 +964,10 @@ code {
   background: var(--surface-muted);
 }
 
+.vote-controls[hidden] {
+  display: none;
+}
+
 .vote-label {
   padding: 0 5px 0 6px;
   font-family: var(--font-mono);

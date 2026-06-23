@@ -311,9 +311,9 @@ export function renderLoopPage(loop, loops) {
     <link rel="alternate" type="text/plain" title="${SITE.name} plain-text catalog" href="${SITE.baseUrl}catalog.txt" />
     <link rel="help" href="${SITE.baseUrl}agents/" />
     <link rel="icon" type="image/png" href="../../assets/favicon.png" />
-    <link rel="stylesheet" href="../../styles.css?v=20260623-popular-ranking" />
+    <link rel="stylesheet" href="../../styles.css?v=20260623-auth-gate" />
     <script type="application/ld+json">${jsonForHtml(structuredData)}</script>
-    <script src="../../script.js?v=20260623-popular-ranking" defer></script>
+    <script src="../../script.js?v=20260623-auth-gate" defer></script>
     <title>${escapeHtml(loop.seoTitle)}</title>
   </head>
   <body>
@@ -390,7 +390,7 @@ function shareActions(loop, url) {
 }
 
 function renderVoteControls(slug) {
-  return `<div class="vote-controls" data-vote-controls data-loop-slug="${escapeHtml(slug)}" aria-label="Vote on this loop"><span class="vote-label" aria-hidden="true">Vote</span><button class="vote-button vote-button-up" type="button" data-vote-value="1" aria-label="Upvote this loop" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 5-7 8h4v6h6v-6h4Z"></path></svg><span data-vote-count>0</span></button><button class="vote-button vote-button-down" type="button" data-vote-value="-1" aria-label="Downvote this loop" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19 7-8h-4V5H9v6H5Z"></path></svg><span data-vote-count>0</span></button></div>`;
+  return `<div class="vote-controls" data-vote-controls data-loop-slug="${escapeHtml(slug)}" aria-label="Vote on this loop" hidden><span class="vote-label" aria-hidden="true">Vote</span><button class="vote-button vote-button-up" type="button" data-vote-value="1" aria-label="Upvote this loop" aria-pressed="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 5-7 8h4v6h6v-6h4Z"></path></svg><span data-vote-count>0</span></button><button class="vote-button vote-button-down" type="button" data-vote-value="-1" aria-label="Downvote this loop" aria-pressed="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19 7-8h-4V5H9v6H5Z"></path></svg><span data-vote-count>0</span></button></div>`;
 }
 
 function hereNowCredit(assetPath, modifier) {

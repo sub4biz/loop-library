@@ -696,6 +696,18 @@ function clearViewerVoteSelection() {
   });
 }
 
+function setVotingUiVisible(visible) {
+  voteControls.forEach((control) => {
+    control.hidden = !visible;
+    control.querySelectorAll(".vote-button").forEach((button) => {
+      button.disabled = !visible;
+    });
+  });
+  if (!visible) {
+    document.querySelector("[data-vote-account]")?.remove();
+  }
+}
+
 function renderVoteAccount() {
   const existing = document.querySelector("[data-vote-account]");
   if (existing) existing.remove();
@@ -751,15 +763,12 @@ async function loadVotes() {
         viewerVotes[slug] || 0,
       );
     });
+    setVotingUiVisible(body.uiEnabled === true);
     applySort(activeSort);
     updateLibrary();
-    renderVoteAccount();
+    if (body.uiEnabled === true) renderVoteAccount();
   } catch {
-    voteControls.forEach((control) => {
-      control.querySelectorAll(".vote-button").forEach((button) => {
-        button.disabled = true;
-      });
-    });
+    setVotingUiVisible(false);
   }
 }
 

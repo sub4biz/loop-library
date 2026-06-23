@@ -8,3 +8,4 @@ SESSION_SECRET=replace-with-at-least-32-random-characters
 GITHUB_OAUTH_CLIENT_ID=replace-with-a-github-oauth-client-id
 GITHUB_OAUTH_CLIENT_SECRET=replace-with-a-github-oauth-client-secret
 OAUTH_CALLBACK_ORIGIN=https://signals.forwardfuture.ai
+VOTING_UI_ENABLED=true
