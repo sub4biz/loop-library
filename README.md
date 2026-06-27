@@ -96,14 +96,14 @@ You need Node.js and `npx`. Pick the platform you use:
 
 | Platform | Install command |
 | --- | --- |
-| Codex | `npx skills add Forward-Future/loop-library --skill loopy --agent codex -g -y` |
-| Cursor | `npx skills add Forward-Future/loop-library --skill loopy --agent cursor -g -y` |
-| Claude Code | `npx skills add Forward-Future/loop-library --skill loopy --agent claude-code -g -y` |
+| Codex | `npx skills add Forward-Future/loopy --skill loopy --agent codex -g -y` |
+| Cursor | `npx skills add Forward-Future/loopy --skill loopy --agent cursor -g -y` |
+| Claude Code | `npx skills add Forward-Future/loopy --skill loopy --agent claude-code -g -y` |
 
 To install it for all three at once:
 
 ```bash
-npx skills add Forward-Future/loop-library \
+npx skills add Forward-Future/loopy \
   --skill loopy \
   --agent codex \
   --agent cursor \
@@ -115,12 +115,12 @@ Using another agent? Run the interactive installer and choose from the agents
 it detects:
 
 ```bash
-npx skills add Forward-Future/loop-library --skill loopy -g
+npx skills add Forward-Future/loopy --skill loopy -g
 ```
 
 The command parts mean:
 
-- `Forward-Future/loop-library` is the GitHub repository to install from.
+- `Forward-Future/loopy` is the GitHub repository to install from.
 - `--skill loopy` selects this skill from the repository.
 - `--agent ...` selects the agent that should receive it.
 - `-g` makes it available in all your projects. Leave `-g` off to install it
