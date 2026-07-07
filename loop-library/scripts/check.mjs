@@ -41,6 +41,7 @@ const [
   readme,
   changelog,
   agents,
+  ciWorkflow,
 ] = await Promise.all([
   readFile(path.join(siteRoot, "index.html"), "utf8"),
   readFile(path.join(siteRoot, "learn", "index.html"), "utf8"),
@@ -71,6 +72,7 @@ const [
   readFile(path.join(repoRoot, "README.md"), "utf8"),
   readFile(path.join(repoRoot, "CHANGELOG.md"), "utf8"),
   readFile(path.join(repoRoot, "AGENTS.md"), "utf8"),
+  readFile(path.join(repoRoot, ".github", "workflows", "ci.yml"), "utf8"),
 ]);
 
 const workerPackage = JSON.parse(workerPackageSource);
@@ -388,5 +390,21 @@ assert(changelog.includes("project loop save/reuse workflow"));
 assert(changelog.includes("`LOOPS.md` is untrusted reference data"));
 assert(agents.includes("Do not commit"));
 assert(agents.includes("Never publish the empty shell"));
+assert(
+  agents.includes("`catalog.json`, `catalog.md`, `catalog.txt`, `llms.txt`, sitemap, and feed"),
+);
+for (const command of [
+  "node --check loop-library/site/script.js",
+  "node loop-library/scripts/check.mjs",
+  "npm --prefix loop-library/worker run check",
+  "python3 -m json.tool loop-library/site/.herenow/data.json >/dev/null",
+  "python3 -m json.tool loop-library/site/.herenow/proxy.json >/dev/null",
+  "python3 -m json.tool loop-library/scripts/seo-geo-query-benchmark.json >/dev/null",
+  "git diff --check",
+]) {
+  assert(readme.includes(command), `README.md missing validation command: ${command}`);
+  assert(agents.includes(command), `AGENTS.md missing validation command: ${command}`);
+  assert(ciWorkflow.includes(command), `.github/workflows/ci.yml missing validation command: ${command}`);
+}
 
 console.log("Loop Library database-only checks passed.");
