@@ -386,4 +386,9 @@ Read [AGENTS.md](AGENTS.md) before editing loops or publishing the site. It
 contains the source-of-truth rules for database publishing, generated
 responses, form security, and clean-main deployments.
 
+The legacy `https://signals.forwardfuture.ai/*` host is maintained by the
+redirect-only Vercel project in
+[`infra/signals-forwardfuture-ai-redirect/`](infra/signals-forwardfuture-ai-redirect/).
+It permanently redirects paths to `https://signals.forwardfuture.com/*`.
+
 </details>
