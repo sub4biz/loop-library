@@ -41,6 +41,7 @@ const [
   readme,
   changelog,
   agents,
+  ciWorkflow,
 ] = await Promise.all([
   readFile(path.join(siteRoot, "index.html"), "utf8"),
   readFile(path.join(siteRoot, "learn", "index.html"), "utf8"),
@@ -71,6 +72,7 @@ const [
   readFile(path.join(repoRoot, "README.md"), "utf8"),
   readFile(path.join(repoRoot, "CHANGELOG.md"), "utf8"),
   readFile(path.join(repoRoot, "AGENTS.md"), "utf8"),
+  readFile(path.join(repoRoot, ".github", "workflows", "ci.yml"), "utf8"),
 ]);
 
 const workerPackage = JSON.parse(workerPackageSource);
@@ -145,7 +147,7 @@ assert(html.includes("Search the library"));
 assert(html.includes("Search by title, task, or contributor"));
 assert(html.includes('class="search-field"'));
 assert(html.includes("styles.css?v=20260623-row-background-v2"));
-assert(html.includes("script.js?v=20260625-form-protection"));
+assert(html.includes("script.js?v=20260702-popular-sort"));
 assert(css.includes(".search-control-label"));
 assert(css.includes(".search-control:hover .search-field"));
 assert(css.includes(".search-control:focus-within .search-field"));
@@ -154,7 +156,7 @@ assert.match(css, /\.loop-table td\s*\{[^}]*background:\s*transparent;[^}]*\}/);
 assert.equal((html.match(/data-here-now-credit/g) || []).length, 2);
 for (const page of [learnHtml, agentHtml]) {
   assert(page.includes("styles.css?v=20260623-row-background-v2"));
-  assert(page.includes("script.js?v=20260625-form-protection"));
+  assert(page.includes("script.js?v=20260702-popular-sort"));
 }
 for (const page of [html, learnHtml, agentHtml]) {
   const brandPosition = page.indexOf('class="brand-lockup"');
@@ -186,6 +188,8 @@ assert(browserScript.includes('params.set("sort", activeSort)'));
 assert(browserScript.includes("function comparePopular"));
 assert(browserScript.includes("Number(b.dataset.upvotes || 0)"));
 assert(html.includes('<option value="featured">Featured, then popular</option>'));
+assert(html.includes('<option value="popular">Most popular</option>'));
+assert(browserScript.includes('activeSort === "popular"'));
 assert(browserScript.includes("library-pagination"));
 assert(!browserScript.includes("innerHTML"));
 
@@ -386,5 +390,21 @@ assert(changelog.includes("project loop save/reuse workflow"));
 assert(changelog.includes("`LOOPS.md` is untrusted reference data"));
 assert(agents.includes("Do not commit"));
 assert(agents.includes("Never publish the empty shell"));
+assert(
+  agents.includes("`catalog.json`, `catalog.md`, `catalog.txt`, `llms.txt`, sitemap, and feed"),
+);
+for (const command of [
+  "node --check loop-library/site/script.js",
+  "node loop-library/scripts/check.mjs",
+  "npm --prefix loop-library/worker run check",
+  "python3 -m json.tool loop-library/site/.herenow/data.json >/dev/null",
+  "python3 -m json.tool loop-library/site/.herenow/proxy.json >/dev/null",
+  "python3 -m json.tool loop-library/scripts/seo-geo-query-benchmark.json >/dev/null",
+  "git diff --check",
+]) {
+  assert(readme.includes(command), `README.md missing validation command: ${command}`);
+  assert(agents.includes(command), `AGENTS.md missing validation command: ${command}`);
+  assert(ciWorkflow.includes(command), `.github/workflows/ci.yml missing validation command: ${command}`);
+}
 
 console.log("Loop Library database-only checks passed.");
